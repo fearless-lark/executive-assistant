@@ -1,0 +1,17 @@
+{
+  "name": "executive-assistant",
+  "description": "Каталог скілів асистента керівника українською для Claude і ChatGPT.",
+  "owner": {
+    "name": "Skywell",
+    "url": "https://skywell.com.ua"
+  },
+  "plugins": [
+    {
+      "name": "executive-assistant",
+      "source": "./",
+      "description": "Дев'ять скілів асистента керівника: налаштування профілю, ранковий бриф, аналіз документів, розбір і робота з нотатками, огляди, дослідження, радар, тиждень для родини.",
+      "category": "productivity",
+      "tags": ["executive", "brief", "ukrainian", "notes", "research"]
+    }
+  ]
+}

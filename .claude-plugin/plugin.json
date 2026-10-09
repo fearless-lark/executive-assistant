@@ -1,0 +1,13 @@
+{
+  "name": "executive-assistant",
+  "displayName": "Executive Assistant",
+  "version": "1.0.0",
+  "description": "Скіли асистента керівника українською: ранковий бриф, аналіз документів, нотатки, огляди тижня і місяця, дослідження, радар регуляторики й конкурентів, тиждень для родини. Спільні запобіжники від впроваджених інструкцій, стандарт доказовості, лише чернетки без автоматичних відправок.",
+  "author": {
+    "name": "Skywell",
+    "url": "https://skywell.com.ua"
+  },
+  "homepage": "https://skywell.com.ua",
+  "repository": "https://github.com/fearless-lark/executive-assistant",
+  "keywords": ["executive-assistant", "daily-brief", "ukrainian", "productivity", "notes", "research", "guardrails"]
+}

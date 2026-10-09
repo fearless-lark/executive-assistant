@@ -1,0 +1,135 @@
+site_name: AI-асистент керівника
+site_url: https://fearless-lark.github.io/executive-assistant/
+site_description: >-
+  Матеріали практичного воркшопу для керівників: ранковий бриф з аналізом документів,
+  нотатки, огляди, глибокі дослідження і безпечна робота з ChatGPT та Claude.
+site_author: Skywell
+copyright: >-
+  © 2026 Skywell. Матеріали воркшопу «AI-асистент керівника».
+
+repo_url: https://github.com/fearless-lark/executive-assistant
+repo_name: executive-assistant
+
+theme:
+  name: material
+  language: uk
+  custom_dir: overrides
+  logo: assets/skywell-logo.svg
+  favicon: assets/favicon.png
+  font:
+    text: Manrope
+    code: IBM Plex Mono
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Темна тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Світла тема
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.footer
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+exclude_docs: |
+  _snippets/
+
+nav:
+  - Головна: index.md
+  - Маршрут воркшопу:
+      - 1. Безпека:
+          - security/index.md
+          - Тарифи і ваші дані: security/plans.md
+          - Суди, таємниця, NDA: security/courts.md
+          - Prompt-ін'єкції: security/prompt-injection.md
+          - Політики вендорів: security/vendor-policies.md
+          - Регуляторика України: security/regulation.md
+      - 2. Підключення: setup.md
+      - 3. Ранковий бриф: brief.md
+      - 4. Нотатки: notes.md
+      - 5. Огляди: reviews.md
+      - 6. Deep Research: research.md
+      - 7. Плагіни і computer use: plugins.md
+      - 8. Делегувати команді: delegate.md
+  - Довідник:
+      - Скіли: reference/skills.md
+      - Регулярні задачі: reference/schedule.md
+      - Питання і відповіді: reference/faq.md
+      - Сімейний тиждень: reference/family-week.md
+      - Демо-компанія «Ланомир»: reference/demo-company.md
+      - Всі промпти: reference/prompts.md
+  - Про Skywell: about.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      anchor_linenums: false
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets:
+      base_path: [docs/_snippets]
+      check_paths: true
+  - pymdownx.magiclink:
+      repo_url_shortener: false
+      social_url_shortener: false
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://skywell.com.ua/
+      name: skywell.com.ua
+    - icon: fontawesome/solid/envelope
+      link: mailto:info@skywell.com.ua
+      name: info@skywell.com.ua
+    - icon: fontawesome/solid/phone
+      link: tel:+380442251155
+      name: +380 (44) 225-11-55
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/skywell-ukraine/about/
+      name: LinkedIn
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/skywell.com.ua
+      name: Facebook
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/interactive.js
