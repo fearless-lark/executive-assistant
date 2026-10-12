@@ -1,0 +1,125 @@
+site_name: AI-асистент керівника
+site_url: https://ai-executive-assistant.pages.dev/
+site_description: >-
+  Матеріали воркшопу для керівників: бриф дня, аналіз документів, підготовка
+  до зустрічей, дослідження і нотатки з ChatGPT або Claude.
+site_author: Oleh Yashchuk
+copyright: >-
+  © 2026 Матеріали воркшопу «AI-асистент керівника».
+
+repo_url: https://github.com/fearless-lark/executive-assistant
+repo_name: executive-assistant
+
+theme:
+  name: material
+  language: uk
+  custom_dir: overrides
+  favicon: assets/favicon.png
+  font:
+    text: Inter
+    code: IBM Plex Mono
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Темна тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Світла тема
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.footer
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+exclude_docs: |
+  _snippets/
+
+nav:
+  - Головна: index.md
+  - Підключення: setup.md
+  - Скіли AI агента:
+      - Сценарії: scenarios/index.md
+      - Розклад: schedule.md
+      - Скіли: skills.md
+  - Корисні функції:
+      - Deep Research: research.md
+      - Нотатки: notes.md
+      - Голосовий ввід: voice.md
+      - Телефон і голос: mobile.md
+  - Безпека:
+      - Основне: security.md
+      - Тарифи і ваші дані: security/plans.md
+      - Суди, таємниця, NDA: security/courts.md
+      - Prompt-ін’єкції: security/prompt-injection.md
+      - Політики вендорів: security/vendor-policies.md
+      - Регуляторика України: security/regulation.md
+  - Для компанії: company.md
+  - Про нас: about.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      anchor_linenums: false
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets:
+      base_path: [docs/_snippets]
+      check_paths: true
+  - pymdownx.magiclink:
+      repo_url_shortener: false
+      social_url_shortener: false
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/fearless_lark
+      name: Telegram @fearless_lark
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/oleh-yashchuk/
+      name: LinkedIn
+    - icon: fontawesome/solid/envelope
+      link: mailto:yaschuk.o@skywell.com.ua
+      name: yaschuk.o@skywell.com.ua
+    - icon: fontawesome/solid/phone
+      link: tel:+380955559094
+      name: +38 (095) 555-90-94
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/interactive.js

@@ -1,0 +1,13 @@
+{
+  "name": "executive-assistant",
+  "displayName": "Executive Assistant",
+  "version": "1.0.0",
+  "description": "Скіли асистента керівника українською: бриф дня, підготовка до зустрічі, аналіз документів, нотатки, огляди тижня і місяця, дослідження, радар регуляторики й конкурентів, тиждень для родини. Спільні запобіжники від впроваджених інструкцій, стандарт доказовості, лише чернетки без автоматичних відправок.",
+  "author": {
+    "name": "Oleh Yashchuk",
+    "url": "https://www.linkedin.com/in/oleh-yashchuk/"
+  },
+  "homepage": "https://ai-executive-assistant.pages.dev/",
+  "repository": "https://github.com/fearless-lark/executive-assistant",
+  "keywords": ["executive-assistant", "daily-brief", "meeting-prep", "ukrainian", "productivity", "notes", "research", "guardrails"]
+}

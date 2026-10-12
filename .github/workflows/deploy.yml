@@ -1,0 +1,88 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  SITE_URL: https://ai-executive-assistant.pages.dev/
+  CLOUDFLARE_ACCOUNT_ID: fd36f3ef1e01f57248f8165f1fac17bd
+  CLOUDFLARE_PAGES_PROJECT: ai-executive-assistant
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check deployment access
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          token = os.environ['CLOUDFLARE_API_TOKEN']
+          if not token:
+              raise SystemExit('Missing repository secret CLOUDFLARE_API_TOKEN')
+          url = 'https://api.cloudflare.com/client/v4/accounts/' + os.environ['CLOUDFLARE_ACCOUNT_ID'] + '/pages/projects/' + os.environ['CLOUDFLARE_PAGES_PROJECT']
+          request = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + token})
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = json.load(response)
+          if not payload.get('success'):
+              raise SystemExit('Cloudflare project access check failed')
+          project = payload['result']
+          if 'https://' + project['subdomain'] + '/' != os.environ['SITE_URL']:
+              raise SystemExit('Cloudflare project hostname does not match SITE_URL')
+          print('Cloudflare project access verified: ' + project['name'])
+          PY
+      - name: Detect workshop source
+        id: source
+        shell: bash
+        run: |
+          if [[ -f mkdocs.yml ]]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo '### Waiting for workshop materials' >> "$GITHUB_STEP_SUMMARY"
+            echo 'No mkdocs.yml yet. Deployment access was checked on main; the existing website is unchanged. Add the workshop source to main to publish automatically.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/setup-python@v6
+        if: steps.source.outputs.ready == 'true'
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install site dependencies
+        if: steps.source.outputs.ready == 'true'
+        run: pip install -r requirements.txt
+      - name: Validate workshop materials
+        if: steps.source.outputs.ready == 'true'
+        run: |
+          bash scripts/sync-shared.sh --check
+          python3 tests/skills/validate_skills.py
+          python3 scripts/build-scenarios-page.py --check
+      - name: Build site
+        if: steps.source.outputs.ready == 'true'
+        run: |
+          python - <<'PY'
+          import os
+          from mkdocs.config import load_config
+          from mkdocs.commands.build import build
+          build(load_config(config_file='mkdocs.yml', site_url=os.environ['SITE_URL'], strict=True))
+          PY
+      - name: Publish production
+        if: steps.source.outputs.ready == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT }} --branch=main

@@ -1,0 +1,17 @@
+{
+  "name": "executive-assistant",
+  "description": "Каталог скілів асистента керівника українською для Claude і ChatGPT.",
+  "owner": {
+    "name": "Oleh Yashchuk",
+    "url": "https://www.linkedin.com/in/oleh-yashchuk/"
+  },
+  "plugins": [
+    {
+      "name": "executive-assistant",
+      "source": "./",
+      "description": "Дев'ять скілів асистента керівника: бриф дня, підготовка до зустрічі, аналіз документів, розбір і робота з нотатками, огляди, дослідження, радар, тиждень для родини.",
+      "category": "productivity",
+      "tags": ["executive", "brief", "ukrainian", "notes", "research"]
+    }
+  ]
+}

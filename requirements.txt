@@ -1,0 +1,7 @@
+# Site build. Pinned so CI and local builds produce the same output.
+mkdocs==1.6.1
+mkdocs-material==9.7.7
+pymdown-extensions==12.1
+# No mkdocs-redirects: this is a new site with no legacy paths.
+# If you ever add it, pin mkdocs-redirects==1.2.2. Version 1.2.3 pulls in
+# an unrelated package that injects promotional content into the build.
